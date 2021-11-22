@@ -26,7 +26,7 @@ http의 어떤 버전으로 통신 할 것인지부터 시작하여 콘텐츠의
 
 ## http : Request message
 
-Request 메세지에는 Request 라인과 Request 헤더 그리고 Request message 바디로 이루어져 있고 주요 정보는 다음과 같다.
+req 메세지에는 req 라인과 Req 헤더 그리고 Req message 바디로 이루어져 있고 주요 정보는 다음과 같다.
 
 ```
 GET /index.html HTTP/1.1 // GET 메서드, 요청하는 주소, http 버전을 순으로 표기
@@ -41,4 +41,9 @@ User-Agent: Mozilla/5.0 ... // 유저가 사용하는 웹 브라우저 정보 �
 
 ## http : Response message
 
-d
+res 메세지에는 req 메세지와 비슷한 형식을 띄고 있으며 주요 정보는 다음과 같다.
+
+```
+HTTP 1.1 200 OK // http 버전, http 상태 코드, 상태 텍스트
+
+```
