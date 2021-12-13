@@ -1,10 +1,5 @@
 # HTTP
 
-_생활코딩 http 과정을 보며 복습합니다_ <br>
-_[생활코딩 http 강의](https://opentutorials.org/course/4848)_
-
-<br>
-
 ## http란 무엇인가
 
 http(Hyper Text Transfer Protocol)는 **인터넷에서 데이터를 주고 받을 수 있는 프로토콜.** 쉽게 말해 웹브라우저와 웹서버가 통신을 할 때 사용하는 규칙이라고 할 수 있다. <br>
@@ -15,6 +10,7 @@ http(Hyper Text Transfer Protocol)는 **인터넷에서 데이터를 주고 받�
 이처럼 http 웹을 넘어서 인터넷이 동작하는 근간이라고 할 수 있다.
 
 <br>
+<br>
 
 ## http의 역할
 
@@ -22,6 +18,7 @@ http(Hyper Text Transfer Protocol)는 **인터넷에서 데이터를 주고 받�
 브라우저의 개발자도구를 통하여 네트워크 항목을 통하여 확인 해 볼 수 있다.<br>
 http의 어떤 버전으로 통신 할 것인지부터 시작하여 콘텐츠의 길이 얼마인지 등 다양한 정보를 확인 해 볼 수 있으며 위와 같은 정보를 받아 웹 브라우저는 화면을 출력해준다.
 
+<br>
 <br>
 
 ## http : Request message
@@ -38,6 +35,7 @@ User-Agent: Mozilla/5.0 ... // 유저가 사용하는 웹 브라우저 정보 �
 위와 같이 다양한 정보가 담겨 있다.
 
 <br>
+<br>
 
 ## http : Response message
 
@@ -45,5 +43,23 @@ res 메세지에는 req 메세지와 비슷한 형식을 띄고 있으며 주요
 
 ```
 HTTP 1.1 200 OK // http 버전, http 상태 코드, 상태 텍스트
+header field name | value
 
+body
 ```
+
+http res는 **status 코드의 의미**가 중요하다.<br>
+상세한 status 코드 설명은 [여기](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)를 참고.
+
+    200 번대 : Success 성공했다는 의미가 주로 담겨있다.
+    300 번대 : Redirection 다른 url로 넘겨준다.
+    400 번대 : Client errors 클라이언트 쪽의 오류
+    500 번대 : Sever errors 서버 쪽의 오류
+
+---
+
+_생활코딩 http 과정을 보며 복습합니다_ <br>
+_[생활코딩 http 강의](https://opentutorials.org/course/4848)_
+<br>
+<br>
+_[https](https://developer.mozilla.org/ko/docs/Glossary/https) 는 따로 문서화 할 생각입니다._
