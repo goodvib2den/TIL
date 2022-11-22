@@ -1,5 +1,10 @@
 # Learn my self | node project handling and express
 
+express를 공부하며 적어나갑니다.  
+node 프로젝트를 처음 접하기에 설명이 부실합니다.
+
+---
+
 ## set-up recap
 
 1. 프로젝트 디렉토리 내부에 `npm init` 커맨드를 입력한다.
@@ -15,15 +20,15 @@
 
 ## server recap
 
-**nodeJS**에서 **express**를 사용하여 서버를 만들 시 간략한 세팅 방법에 대하여 알아보겠습니다.
+**nodeJS**에서 **express**를 사용하여 서버를 만들 시 간략한 세팅 방법에 대하여 알아보자.
 
 ### 서버 리스닝 기능
 
-1. 우선 서버의 역할을 해줄 js 파일을 생성합니다.
+1. 우선 서버의 역할을 해줄 js 파일을 생성
 
-2. 이후 파일 내부에 express를 import 합니다.
+2. 이후 파일 내부에 express를 import
 
-3. 사용될 변수를 생성하고 바로 사용할 수 있도록 리턴시킵니다.
+3. 사용될 변수를 생성하고 바로 사용할 수 있도록 리턴시킨다
 
 ```jsx
 import express from "express";
@@ -31,7 +36,7 @@ import express from "express";
 const app = express();
 ```
 
-4. 리스닝 함수를 추가합니다.
+4. 리스닝 함수를 추가
 
 ```jsx
 import express from "express";
@@ -43,19 +48,19 @@ const listeningMyServer = () => console.log("Listening on port 4000");
 app.listen(4000, listeningMyServer);
 ```
 
-위 코드를 터미널을 통해 실행시켜 봅니다.
+위 코드를 터미널을 통해 실행 시켜보자
 
 ```
 $ npm run #{npm_run_script}
 ```
 
-로그 기록은 아래와 같이 출력되어야 정상적으로 작동하는 것입니다.
+로그 기록은 아래와 같이 출력되어야 정상적으로 작동하는 것이다.
 
 ```log
 Listening on port 4000
 ```
 
-위와 같이 작동 중이라면 서버가 동작하고 있으며 동시에 리스닝 기능 또한 작동중인 것으로 확인 할 수 있습니다.
+위와 같이 작동 중이라면 서버가 동작하고 있으며 동시에 리스닝 기능 또한 작동중인 것으로 확인 할 수 있다.
 
 ---
 
@@ -227,3 +232,108 @@ GET / 304 3.545 ms - -
   - 응답시간
 
 위와 같이 확인 할 수 있으니 필요에 맞게 사용 할 수 있다.
+
+---
+
+### Router ft.express
+
+express에서 라우터를 바로 만드는 방법을 알기 이전에 라우터의 역할과 라우터에 무엇이 들어가는지 부터 정리하겠다.
+
+**Router(라우터)**란 컨트롤러와 URL 관리를 보다 쉽게 해주는 구조이다.  
+작은 어플리케이션이라고 보면 쉽다.
+
+우선 URL을 관리하는 좋은 방법으로 주제에 맞게 그룹화 하는 것이 좋다.
+
+url의 `/` 는 기본적으로 `home`의 역할을 한다. 메인 도메인을 통하여 접속 했을 경우 나오는 화면을 뜻한다.
+
+```shell
+# 필요한 url의 역할
+edit_user
+delete_user
+
+# 주제로 묶는 방법
+/user/edit
+/user/delete
+```
+
+위와 같은 방식을 그룹화하여 관리하되 루트에 제일 가까운 url을 **글로벌 라우터**라고 한다.
+
+```shell
+# global router
+/login
+/search
+```
+
+많은 웹서비스가 이런 방식으로 많이 이루어져 있다.
+
+```shell
+/github.com/goodvib2den
+/github.com/goodvib2den/project
+/github.com/goodvib2den/project/commit
+```
+
+위와 같은 방식으로 보기에 편하도록 그룹화를 이루어놓고 이 후 url을 쌓아가는 방식을 선호한다.
+
+라우터를 만들어가는 명확한 기준은 없지만 그렇다고 하더라도 라우터를 만들어가는 과정에서 프로젝트에 쌓일 많은 url을 고려해가며 기초적인 구조를 그룹화하여 명확하게 구분하고 쌓아가는 것을 권장한다.
+
+express에서 라우터는 만드는 방법은 아래와 같다.
+
+```jsx
+// global router
+const globalRouter = express.Router();
+const userRouter = express.Router();
+
+// controller
+const handleHome = (req, res) => res.send("Home");
+const handleEditUser = (req, res) => res.send("user edit page");
+
+// get
+globalRouter.get("/", handleHome);
+userRouter.get("/edit", handleEditUser);
+
+// root url
+app.use("/", globalRouter);
+app.use("/user", ueserRouter);
+```
+
+위와 같은 식으로 라우터를 만들 수 있다.  
+위 내용에서 `user` 라우터을 보게되면 `userRouter`에서 따로 url을 앞부분에 user를 넣어주지 않더라도 root url을 통해 찾게 된다면 하나의 라우터를 찾게되기 때문에 따로 만져주지 않더라도 뒤 함수를 실행 시켜준다.
+
+쉽게 예를 들어 실행하는 브라우저에 직접 입력 해 보자.
+
+![router ex img](./img/router_01.png)
+
+위와 같이 시작하는 라우터의 root url과 직접 라우터의 get함수에서 넣어준 url 인자를 붙여 제대로 브라우저 상 표기가 되는 것을 확인 할 수 있다.
+
+위처럼 코드를 지속적으로 작성해주어도 좋지만 코드를 분리하여 관리하면 더욱 편리해진다.
+
+파일을 하나씩 **모듈화**하여 관리하는 것이 유용하다.  
+아래와 같이 모듈화 해볼 수 있다. _(자바스크립트 모듈화 등으로 검색하면 쉽게 찾을 수 있으니 확인해보기 바란다.)_
+
+```jsx
+import express from "express";
+
+// 라우터가 지속적으로 커질 수 있으니 파일 분리 후 import
+import globalRouter from "./router/globalRouter";
+import artworksRouter from "./router/artworksRouter";
+
+const PORT = 4000;
+
+const app = express();
+const logger = morgan("dev");
+
+app.use(logger);
+
+// root
+app.use("/", globalRouter);
+app.use("/artworks", artworksRouter);
+
+const handleListening = () =>
+  console.log(`✅ Server listeting on port ${PORT}`);
+
+app.listen(PORT, handleListening);
+```
+
+위 처럼 작성하게 될 시 당장의 서버파일의 라인이 간결해지고 라우터의 길어지는 라인을 따로 관리 할 수 있게되어 코드 자체의 가독성이 늘어난다.
+
+위의 분리된 파일의 모듈의 간략한 이해는 맨 첫번째 라인인 `express`도 같은 점이다.
