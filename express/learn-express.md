@@ -313,7 +313,7 @@ app.use("/user", ueserRouter);
 ```jsx
 import express from "express";
 
-// 라우터가 지속적으로 커질 수 있으니 파일 분리 후 import
+// 라우터 파일의 코드 라인이 길어지며 복잡해질 수 있으니 파일 분리 후 import
 import globalRouter from "./router/globalRouter";
 import artworksRouter from "./router/artworksRouter";
 
@@ -337,3 +337,5 @@ app.listen(PORT, handleListening);
 위 처럼 작성하게 될 시 당장의 서버파일의 라인이 간결해지고 라우터의 길어지는 라인을 따로 관리 할 수 있게되어 코드 자체의 가독성이 늘어난다.
 
 위의 분리된 파일의 모듈의 간략한 이해는 맨 첫번째 라인인 `express`도 같은 점이다.
+
+node 프로젝트에서 모든 파일과 폴더는 서로에게 영향을 주지 않으며 독립적이다. 따라서 각 파일과 폴더의 연동을 생각하여 분리하고 이후 `import`와 `export`를 해두어야 에러를 발생시키지 않고 어플리케이션이 실행 될 수 있다.
