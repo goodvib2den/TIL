@@ -339,3 +339,53 @@ app.listen(PORT, handleListening);
 위의 분리된 파일의 모듈의 간략한 이해는 맨 첫번째 라인인 `express`도 같은 점이다.
 
 node 프로젝트에서 모든 파일과 폴더는 서로에게 영향을 주지 않으며 독립적이다. 따라서 각 파일과 폴더의 연동을 생각하여 분리하고 이후 `import`와 `export`를 해두어야 에러를 발생시키지 않고 어플리케이션이 실행 될 수 있다.
+
+<br>
+
+### controllers
+
+라우터를 모듈화 한 것처럼 컨트롤러 또한 파일을 나눠 놓는 것이 좋다.
+
+하나의 파일에서 관리하게 되면 지속적으로 코드가 길어지고 관리하는 것이 불편해지기 때문에 컨트롤러 또한 `export`와 `import`를 통해 관리 할 수 있다.
+
+우선 아래의 라우터를 확인해보자
+
+```jsx
+// 기존 라우터 js 파일
+// firtsRouter.js
+
+import express from "express";
+
+const firstRouter = express.Router();
+
+const one = (req, res) => res.send("Page one");
+
+firstRouter.get("/one", one);
+
+export default firstRouter;
+```
+
+위와 같이 하나의 컨트롤러가 아닌 여러 컨트롤러가 생길 경우 아래로 코드가 지속적으로 늘어나게 되며 전체를 파악하기도 어려울 뿐더러 오류 발생시 찾기가 굉장히 어려워진다.
+
+위 문제를 아래와 같이 해결할 수 있다.
+
+```jsx
+// 나눠놓은 라우터
+// firstRouter.js
+
+import express from "express";
+import { one, two } from "../controllers/firstController";
+
+const fistRouter = express.Router();
+
+fistRouter.get("/one", one);
+
+export default fistRouter;
+```
+
+```jsx
+// 나눠 놓은 컨트롤러
+// controllers 폴더 후 내부에 firstConstroller.js 작성
+
+export const one = (req, res) => res.send("Page one");
+```
